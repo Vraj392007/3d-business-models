@@ -1,63 +1,93 @@
 'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Header() {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
 
+  // ✅ Navigation Links Array
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About', path: '/About' },
+    { name: 'About', path: '/about' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'Service', path: '/service' },
-    { name: 'Contact', path: '/Contact' },
+    { name: 'Contact', path: '/contact' },
   ]
 
   return (
     <header className="header">
+      
       {/* Logo */}
-      <Link href="/">
+      <Link href="/" className="logoWrap">
         <Image
           src="/logo 2.png"
           alt="Logo"
-          width={140}
+          width={150}
           height={45}
-          className="logo"
+          priority
         />
       </Link>
+
+      {/* Desktop Navigation */}
+      <nav className="desktopNav">
+        {navLinks.map((link, index) => (
+          <Link
+            key={index}
+            href={link.path}
+            className={`navLink ${
+              pathname === link.path ? 'active' : ''
+            }`}
+          >
+            {link.name}
+            {pathname === link.path && (
+              <motion.span
+                layoutId="underline"
+                className="underline"
+              />
+            )}
+          </Link>
+        ))}
+      </nav>
 
       {/* Hamburger */}
       <div
         className={`hamburger ${menuOpen ? 'open' : ''}`}
         onClick={() => setMenuOpen(!menuOpen)}
       >
-        <span></span>
-        <span></span>
-        <span></span>
+        <span />
+        <span />
+        <span />
       </div>
 
-      {/* Navigation */}
-      <nav className={`nav-wrapper ${menuOpen ? 'show' : ''}`}>
-        <ul className="nav">
-          {navLinks.map((link) => (
-            <li key={link.path}>
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="mobileMenu"
+          >
+            {navLinks.map((link, index) => (
               <Link
+                key={index}
                 href={link.path}
                 onClick={() => setMenuOpen(false)}
-                className={`nav-link ${
-                  pathname === link.path ? 'active' : ''
-                }`}
+                className="mobileLink"
               >
                 {link.name}
               </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
+      {/* CSS */}
       <style jsx>{`
         .header {
           position: sticky;
@@ -66,111 +96,84 @@ export default function Header() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 18px 60px;
-          background: rgba(0, 0, 0, 0.95);
-          backdrop-filter: blur(8px);
+          padding: 20px 60px;
+          background: linear-gradient(
+            135deg,
+            rgba(18, 18, 200, 0.9),
+            rgba(241, 91, 16, 0.9),
+            rgba(39, 198, 47, 0.9)
+          );
+          backdrop-filter: blur(14px);
         }
 
-        .logo {
-          cursor: pointer;
-          object-fit: contain;
-        }
-
-        /* Desktop Nav */
-        .nav {
+        .desktopNav {
           display: flex;
-          gap: 35px;
-          list-style: none;
-          margin: 0;
-          padding: 0;
+          gap: 40px;
         }
 
-        .nav-link {
+        .navLink {
           position: relative;
           text-decoration: none;
           color: white;
           font-size: 17px;
           font-weight: 500;
-          transition: 0.3s;
         }
 
-        .nav-link::after {
-          content: '';
+        .navLink:hover {
+          color: #00f5ff;
+        }
+
+        .underline {
           position: absolute;
           left: 0;
           bottom: -6px;
-          width: 0%;
-          height: 2px;
-          background: #00ffff;
-          transition: 0.3s ease;
-        }
-
-        .nav-link:hover::after,
-        .active::after {
+          height: 3px;
           width: 100%;
+          background: linear-gradient(90deg, #00f5ff, #ff00ff);
+          border-radius: 10px;
         }
 
-        .active {
-          color: #00ffff;
-        }
-
-        /* Hamburger */
         .hamburger {
           display: none;
           flex-direction: column;
+          gap: 6px;
           cursor: pointer;
-          gap: 5px;
         }
 
         .hamburger span {
-          width: 25px;
+          width: 26px;
           height: 3px;
           background: white;
-          transition: 0.3s;
         }
 
-        .hamburger.open span:nth-child(1) {
-          transform: rotate(45deg) translateY(8px);
+        .mobileMenu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: #111;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 25px;
+          padding: 30px 0;
         }
 
-        .hamburger.open span:nth-child(2) {
-          opacity: 0;
+        .mobileLink {
+          text-decoration: none;
+          color: white;
+          font-size: 18px;
         }
 
-        .hamburger.open span:nth-child(3) {
-          transform: rotate(-45deg) translateY(-8px);
-        }
-
-        /* Mobile */
         @media (max-width: 900px) {
+          .desktopNav {
+            display: none;
+          }
           .hamburger {
             display: flex;
           }
-
-          .nav-wrapper {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: #000;
-            max-height: 0;
-            overflow: hidden;
-            transition: 0.4s ease;
-          }
-
-          .nav-wrapper.show {
-            max-height: 500px;
-            padding: 20px 0;
-          }
-
-          .nav {
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-          }
-
           .header {
-            padding: 18px 25px;
+            padding: 20px 25px;
           }
         }
       `}</style>
