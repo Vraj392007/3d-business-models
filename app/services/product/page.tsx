@@ -1,6 +1,6 @@
 import Link from "next/link"; 
 import React from "react";
-import "./productdesign.css";
+import "./product.css";
 
 export default function Services() {
   return (
