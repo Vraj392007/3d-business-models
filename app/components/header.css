@@ -1,0 +1,158 @@
+/* =========================
+   HEADER CONTAINER
+========================= */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 80px;
+  background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* =========================
+   LOGO SECTION
+========================= */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-img {
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.logo-section h2 {
+  color: #00e5ff;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 35px;
+  align-items: center;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+/* Nav Links */
+.nav-links a,
+.dropbtn {
+  text-decoration: none;
+  color: white;
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  transition: 0.3s ease;
+}
+
+/* Hover underline animation */
+.nav-links a::after,
+.dropbtn::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: #00e5ff;
+  left: 0;
+  bottom: -5px;
+  transition: 0.3s ease;
+}
+
+.nav-links a:hover,
+.dropbtn:hover {
+  color: #00e5ff;
+}
+
+.nav-links a:hover::after,
+.dropbtn:hover::after {
+  width: 100%;
+}
+
+/* =========================
+   DROPDOWN MENU
+========================= */
+.dropdown-content {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  background-color: #2e6f9e;
+  min-width: 260px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+
+  /* Animation */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+  transition: 
+    opacity 0.4s ease,
+    transform 0.4s ease,
+    visibility 0s linear 0.4s;
+}
+
+/* Show Dropdown */
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+/* HOLD EFFECT */
+.dropdown-content:hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Dropdown Links */
+.dropdown-content a {
+  display: block;
+  padding: 14px 20px;
+  color: white;
+  font-size: 15px;
+  transition: 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: #1b4f72;
+  padding-left: 25px;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .dropdown-content {
+    position: static;
+    width: 100%;
+    transform: none;
+  }
+}
