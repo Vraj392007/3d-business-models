@@ -9,7 +9,8 @@ export default function About() {
     <main style={styles.main}>
 
       {/* Animated Background Glow */}
-      <div style={styles.backgroundGlow}></div>
+      <div style={styles.
+        backgroundGlow}></div>
 
       {/* HERO */}
       <section style={styles.hero}>

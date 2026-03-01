@@ -118,7 +118,7 @@ export default function Home() {
                   enableScrollSpy
                   scrollSpyOnce
                 />
-                +
+                  
               </h2>
               <p style={styles.counterLabel}>{item.label}</p>
             </motion.div>
@@ -245,7 +245,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   overlay: { position: "absolute", inset: 0, background: "rgba(0,0,0,0.65)" },
   heroContent: { position: "relative", zIndex: 2 },
   heroTitle: { fontSize: "clamp(32px, 6vw, 60px)", marginBottom: "20px", fontWeight: "bold" },
-  brandMain: { color: "#fff" },
+  brandMain: { color: "#141313" },
   brandHighlight: { background: "linear-gradient(90deg,#00f5ff,#0044ff)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", textShadow: "0 0 25px rgba(0,245,255,0.7)" },
   heroText: { marginBottom: "40px", fontSize: "18px" },
   buttonContainer: { display: "flex", gap: "20px", justifyContent: "center" },
