@@ -1,20 +1,34 @@
-import Header from './compents/Header'
-import Footer from './compents/Footer'
-import './globals.css'
+import "./globals.css";
+import type { Metadata } from "next";
+import { ReactNode } from "react";
+import Header from "./components/header";
+import Footer from "./components/footer";
 
-export const metadata = {
-  title: '3D Business Models',
-  description: 'Professional 3D Business Model Services',
+
+export const metadata: Metadata = {
+  title: "3D Website Studio",
+  description: "Professional 3D Website Development Services",
+};
+
+interface RootLayoutProps {
+  children: ReactNode;
 }
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body>
+      <body
+        style={{
+          margin: 0,
+          padding: 0,
+          background: "#0a0a0a",
+          color: "white",
+        }}
+      >
         <Header />
-        {children}
+        <main style={{ minHeight: "80vh" }}>{children}</main>
         <Footer />
       </body>
     </html>
-  )
+  );
 }

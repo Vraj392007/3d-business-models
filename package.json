@@ -16,6 +16,7 @@
     "next": "16.1.6",
     "nodemailer": "^8.0.1",
     "react": "19.2.3",
+    "react-countup": "^6.5.3",
     "react-dom": "19.2.3",
     "three": "^0.183.1"
   },

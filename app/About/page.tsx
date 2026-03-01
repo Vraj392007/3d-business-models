@@ -8,21 +8,30 @@ export default function About() {
   return (
     <main style={styles.main}>
 
+      {/* Animated Background Glow */}
+      <div style={styles.backgroundGlow}></div>
+
       {/* HERO */}
-      <motion.section
-        style={styles.hero}
-        initial={{ opacity: 0, y: 60 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-      >
-        <h1 style={styles.title}>
+      <section style={styles.hero}>
+        <motion.h1
+          style={styles.title}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
           About <span style={styles.highlight}>Our 3D Studio</span>
-        </h1>
-        <p style={styles.text}>
+        </motion.h1>
+
+        <motion.p
+          style={styles.text}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
           We specialize in building immersive 3D websites and interactive digital
           experiences that elevate brands in the modern digital era.
-        </p>
-      </motion.section>
+        </motion.p>
+      </section>
 
       {/* ABOUT SECTION */}
       <section style={styles.section}>
@@ -31,11 +40,12 @@ export default function About() {
 
             {/* IMAGE */}
             <motion.div
-              style={styles.imageBox}
-              initial={{ opacity: 0, x: -80 }}
+              style={styles.imageWrapper}
+              initial={{ opacity: 0, x: -100 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
               viewport={{ once: true }}
+              whileHover={{ scale: 1.05 }}
             >
               <Image
                 src="/about logo.jpg"
@@ -44,31 +54,27 @@ export default function About() {
                 height={400}
                 style={styles.image}
               />
+              <div style={styles.imageOverlay}></div>
             </motion.div>
 
             {/* CONTENT */}
             <motion.div
               style={styles.contentBox}
-              initial={{ opacity: 0, x: 80 }}
+              initial={{ opacity: 0, x: 100 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
               viewport={{ once: true }}
             >
-              <div style={styles.sectionHeadingWrap}>
-                <h2 style={styles.sectionHeading}>Who We Are</h2>
-                <div style={styles.underline}></div>
-              </div>
+              <h2 style={styles.sectionHeading}>Who We Are</h2>
 
-              <p style={{ marginTop: "20px", lineHeight: 1.8 }}>
+              <p style={styles.paragraph}>
                 We are a creative 3D web development studio focused on delivering
-                high-performance digital solutions. Our team blends technology,
-                creativity, and strategy to craft immersive web experiences.
+                high-performance digital solutions blending creativity and technology.
               </p>
 
-              <p style={{ marginTop: "20px", lineHeight: 1.8 }}>
-                From product modeling to architectural visualization and 3D
-                interactive websites, we help businesses stand out in a competitive
-                market with innovative digital solutions.
+              <p style={styles.paragraph}>
+                From product modeling to architectural visualization and interactive
+                experiences, we help businesses stand out with innovative solutions.
               </p>
             </motion.div>
 
@@ -76,102 +82,60 @@ export default function About() {
         </div>
       </section>
 
-      {/* EXPERIENCE SECTION */}
-      <motion.section
-        style={styles.experienceSection}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
-      >
-        <div style={styles.container}>
-          <div style={{ textAlign: "center" }}>
-            <div style={styles.sectionHeadingWrap}>
-              <h2 style={styles.sectionHeading}>Our Experience</h2>
-              <div style={{ ...styles.underline, margin: "0 auto" }}></div>
-            </div>
-          </div>
-
-          <motion.div
-            style={styles.statsGrid}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={{
-              hidden: {},
-              visible: {
-                transition: {
-                  staggerChildren: 0.2,
-                },
-              },
-            }}
-          >
-            {[ 
-              { num: "5+", text: "Years of Experience" },
-              { num: "120+", text: "Projects Completed" },
-              { num: "80+", text: "Happy Clients" },
-              { num: "15+", text: "Professional Experts" },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                style={styles.statCard}
-                variants={{
-                  hidden: { opacity: 0, y: 40 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.6 }}
-              >
-                <div style={styles.statNumber}>{item.num}</div>
-                <h3>{item.text}</h3>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.section>
-
       {/* CTA */}
-      <motion.section
-        style={styles.cta}
-        initial={{ opacity: 0, y: 80 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
-      >
+      <section style={styles.cta}>
         <h2 style={styles.ctaTitle}>
           Let’s Build Something Amazing Together
         </h2>
 
-        <p style={styles.ctaText}>
-          Ready to transform your digital presence with immersive 3D experiences?
-          Let’s collaborate and bring your vision to life.
-        </p>
+        <motion.div whileHover={{ scale: 1.08 }}>
+          <Link href="/contact" style={styles.button}>
+            Start Your Project
+          </Link>
+        </motion.div>
+      </section>
 
-        <Link href="/contact" style={styles.button}>
-          Start Your Project
-        </Link>
-      </motion.section>
+      {/* Keyframes */}
+      <style>
+        {`
+          @keyframes floatGlow {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(40px); }
+          }
+        `}
+      </style>
 
     </main>
   );
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
+
   main: {
     background: "#0a0a0a",
     color: "white",
     fontFamily: "Arial, sans-serif",
+    position: "relative",
+    overflow: "hidden"
+  },
+
+  backgroundGlow: {
+    position: "absolute",
+    width: "600px",
+    height: "600px",
+    background: "radial-gradient(circle, #00f5ff40, transparent 70%)",
+    top: "-100px",
+    left: "-100px",
+    filter: "blur(120px)",
+    animation: "floatGlow 6s infinite alternate"
   },
 
   hero: {
-    padding: "120px 20px",
-    textAlign: "center",
-    background: "linear-gradient(135deg, #00f5ff10, #0044ff20)",
+    padding: "140px 20px",
+    textAlign: "center"
   },
 
-  title: {
-    fontSize: "48px",
-    marginBottom: "20px",
-  },
+  title: { fontSize: "50px", marginBottom: "20px" },
 
   highlight: { color: "#00f5ff" },
 
@@ -179,8 +143,8 @@ const styles: { [key: string]: React.CSSProperties } = {
     maxWidth: "800px",
     margin: "0 auto",
     opacity: 0.85,
-    lineHeight: 1.8,
     fontSize: "18px",
+    lineHeight: 1.8
   },
 
   section: { padding: "100px 20px" },
@@ -191,80 +155,51 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: "flex",
     flexWrap: "wrap",
     alignItems: "center",
-    gap: "50px",
-    marginTop: "60px",
+    gap: "60px"
   },
 
-  imageBox: { flex: 1, minWidth: "300px" },
-
-  contentBox: { flex: 1, minWidth: "300px" },
+  imageWrapper: {
+    position: "relative",
+    borderRadius: "20px",
+    overflow: "hidden",
+    boxShadow: "0 20px 60px rgba(0,0,0,0.6)"
+  },
 
   image: {
-    borderRadius: "20px",
-    objectFit: "cover",
-    boxShadow: "0 20px 60px rgba(0,0,0,0.6)",
+    borderRadius: "20px"
   },
 
-  sectionHeadingWrap: { marginBottom: "30px" },
+  imageOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    background: "linear-gradient(135deg, rgba(0,0,0,0.4), transparent)"
+  },
+
+  contentBox: { flex: 1, minWidth: "300px" },
 
   sectionHeading: {
     fontSize: "36px",
     fontWeight: "bold",
-    background: "linear-gradient(90deg, #00f5ff, #0044ff)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-    marginBottom: "10px",
-  },
-
-  underline: {
-    width: "70px",
-    height: "4px",
-    background: "linear-gradient(90deg, #00f5ff, #0044ff)",
-    borderRadius: "10px",
-  },
-
-  experienceSection: {
-    background: "#111",
-    padding: "100px 20px",
-    textAlign: "center",
-  },
-
-  statsGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-    gap: "40px",
-    marginTop: "60px",
-  },
-
-  statCard: {
-    background: "linear-gradient(145deg, #0a0a0a, #111)",
-    padding: "40px",
-    borderRadius: "20px",
-    border: "1px solid #1f1f1f",
-  },
-
-  statNumber: {
-    fontSize: "42px",
-    fontWeight: "bold",
     color: "#00f5ff",
-    marginBottom: "15px",
+    marginBottom: "20px"
+  },
+
+  paragraph: {
+    marginBottom: "20px",
+    lineHeight: 1.8,
+    opacity: 0.85
   },
 
   cta: {
     padding: "120px 20px",
     textAlign: "center",
-    background: "linear-gradient(135deg, #0f2027, #203a43, #2c5364)",
+    background: "linear-gradient(135deg, #0f2027, #203a43, #2c5364)"
   },
 
-  ctaTitle: { fontSize: "40px", marginBottom: "20px", fontWeight: "bold" },
-
-  ctaText: {
-    maxWidth: "700px",
-    margin: "0 auto",
-    opacity: 0.85,
-    fontSize: "18px",
-    lineHeight: 1.8,
-  },
+  ctaTitle: { fontSize: "40px", marginBottom: "30px" },
 
   button: {
     background: "linear-gradient(90deg, #00f5ff, #0044ff)",
@@ -273,7 +208,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: "50px",
     textDecoration: "none",
     fontWeight: 600,
-    display: "inline-block",
-    marginTop: "40px",
-  },
+    display: "inline-block"
+  }
 };

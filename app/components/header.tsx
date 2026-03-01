@@ -13,10 +13,10 @@ export default function Header() {
   // ✅ Navigation Links Array
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
+    { name: 'About', path: '/About' },
     { name: 'Gallery', path: '/gallery' },
-    { name: 'Service', path: '/service' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'services', path: '/services' },
+    { name: 'Contact', path: '/Contact' },
   ]
 
   return (
