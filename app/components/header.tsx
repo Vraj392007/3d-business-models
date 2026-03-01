@@ -19,10 +19,10 @@ export default function Header() {
             <span className="dropbtn">Service +</span>
 
             <div className="dropdown-content">
-              <Link href="#">3D Product Design</Link>
-              <Link href="#">3D Printing</Link>
-              <Link href="#">3D Animation</Link>
-              <Link href="#">3D Laser Scanning</Link>
+              <Link href="./product">3D Product Design</Link>
+              <Link href="./3d printing">3D Printing</Link>
+              <Link href="./3d animation">3D Animation</Link>
+              <Link href="./3d">3D Laser Scanning</Link>
               <Link href="#">Rapid Prototyping</Link>
               <Link href="#">Vacuum Casting</Link>
               <Link href="#">Mass Manufacturing</Link>
