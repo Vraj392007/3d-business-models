@@ -1,170 +1,76 @@
+"use client";
 
-import React from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
-export default function Services() {
+const services = [
+  {
+    title: "3D Product Design",
+    description:
+      "We create innovative and detailed 3D product models for manufacturing, marketing, and presentations. Our designs are realistic, precise, and production-ready.",
+    image: "./service1.jpg",
+  },
+  {
+    title: "3D Laser Scanning",
+    description:
+      "High-accuracy 3D laser scanning services to capture real-world objects and environments with extreme precision for reverse engineering and digital modeling.",
+    image: "./service2.jpg",
+  },
+  {
+    title: "3D Product Animation",
+    description:
+      "Professional 3D animations to showcase product features, assembly processes, and marketing presentations with cinematic visual effects.",
+    image: "./service3.jpg",
+  },
+  {
+    title: "3D Rapid Prototyping",
+    description:
+      "Transform your ideas into physical prototypes quickly using advanced 3D printing and rapid prototyping technologies.",
+    image: "./service4.jpg",
+  },
+];
+
+export default function ServicesPage() {
   return (
-    <>
-      <div className="services-container">
-
-        {/* HEADER */}
-        <div className="header-wrapper">
-          <h1 className="main-title">
-            <span className="brand-name">3D Business Models</span>
-          </h1>
-          <p className="subtitle">
-            Professional 3D Solutions for Modern Businesses
-          </p>
-        </div>
-
-        {/* SERVICES GRID */}
-        <div className="services-grid">
-
-          <div className="service-card">
-            <h2>3D Modeling</h2>
-            <ul>
-              <li>✔ Product Design</li>
-              <li>✔ Architectural Models</li>
-              <li>✔ Mechanical Parts</li>
-              <li>✔ Prototypes</li>
-              <li>✔ Custom 3D Designs</li>
-            </ul>
-          </div>
-
-          <div className="service-card">
-            <h2>3D Printing</h2>
-            <ul>
-              <li>✔ FDM Printing</li>
-              <li>✔ Resin Printing</li>
-              <li>✔ PLA / ABS / PETG</li>
-              <li>✔ Fast Delivery</li>
-              <li>✔ High Precision Output</li>
-            </ul>
-          </div>
-
-          <div className="service-card">
-            <h2>Custom Printed Items</h2>
-            <ul>
-              <li>✔ Mini House Models</li>
-              <li>✔ Car Models</li>
-              <li>✔ Gift Items</li>
-              <li>✔ Machine Parts</li>
-              <li>✔ Toys & Decorative Items</li>
-            </ul>
-          </div>
-
-        </div>
+    <div className="bg-gray-100 min-h-screen">
+      
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20 text-center">
+        <h1 className="text-5xl font-bold mb-4">Our 3D Services</h1>
+        <p className="text-lg max-w-2xl mx-auto">
+          We provide cutting-edge 3D solutions for design, scanning,
+          animation, and rapid prototyping to help businesses innovate.
+        </p>
       </div>
 
-      <style>{`
-
-        :root {
-          --primary: #2563eb;
-          --secondary: #06b6d4;
-          --dark-bg: #0f172a;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-
-        body {
-          margin: 0;
-        }
-
-        .services-container {
-          min-height: 100vh;
-          padding: clamp(60px, 8vw, 120px) 20px;
-          background: linear-gradient(135deg, #0f172a, #111827);
-          font-family: 'Segoe UI', sans-serif;
-        }
-
-        .header-wrapper {
-          text-align: center;
-          margin-bottom: clamp(40px, 6vw, 80px);
-        }
-
-        .main-title {
-          font-size: clamp(32px, 6vw, 56px);
-          font-weight: 800;
-          margin: 0;
-        }
-
-        .brand-name {
-          background: linear-gradient(270deg, #06b6d4, #2563eb, #3b82f6, #06b6d4);
-          background-size: 600% 600%;
-          color: transparent;
-          -webkit-background-clip: text;
-          background-clip: text;
-          animation: gradientMove 6s ease infinite;
-          text-shadow:
-            0 0 15px rgba(37,99,235,0.5),
-            0 0 30px rgba(6,182,212,0.3);
-        }
-
-        .subtitle {
-          margin-top: 15px;
-          font-size: clamp(14px, 2.5vw, 18px);
-          color: #cbd5e1;
-        }
-
-        @keyframes gradientMove {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-
-        .services-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: clamp(20px, 4vw, 40px);
-          max-width: 1200px;
-          margin: auto;
-        }
-
-        .service-card {
-          background: rgba(30, 41, 59, 0.9);
-          backdrop-filter: blur(12px);
-          padding: clamp(25px, 4vw, 40px);
-          border-radius: 20px;
-          color: white;
-          border: 1px solid rgba(255,255,255,0.08);
-          box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-          transition: all 0.4s ease;
-        }
-
-        .service-card:hover {
-          transform: translateY(-12px) scale(1.02);
-          border: 1px solid var(--primary);
-          box-shadow: 0 25px 45px rgba(37,99,235,0.4);
-        }
-
-        .service-card h2 {
-          margin-bottom: 20px;
-          color: var(--secondary);
-          font-size: clamp(18px, 3vw, 24px);
-        }
-
-        .service-card ul {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        .service-card li {
-          margin-bottom: 12px;
-          color: #e2e8f0;
-          font-size: clamp(14px, 2.5vw, 16px);
-          line-height: 1.6;
-        }
-
-        /* Mobile Improvements */
-        @media (max-width: 480px) {
-          .service-card {
-            border-radius: 15px;
-          }
-        }
-
-      `}</style>
-    </>
+      {/* Services Grid */}
+      <div className="max-w-7xl mx-auto py-16 px-6 grid md:grid-cols-2 lg:grid-cols-2 gap-10">
+        {services.map((service, index) => (
+          <motion.div
+            key={index}
+            whileHover={{ scale: 1.05 }}
+            className="bg-white rounded-2xl shadow-lg overflow-hidden"
+          >
+            <img
+              src={service.image}
+              alt={service.title}
+              className="w-full h-60 object-cover"
+            />
+            <div className="p-6">
+              <h2 className="text-2xl font-bold text-blue-600 mb-3">
+                {service.title}
+              </h2>
+              <p className="text-gray-600 mb-4">{service.description}</p>
+              <Link
+                href="/contact"
+                className="inline-block bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition"
+              >
+                Get Quote
+              </Link>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
   );
 }

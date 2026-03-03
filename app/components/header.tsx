@@ -1,39 +1,51 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
-import './Header.css'
+import Image from 'next/image'
+import './header.css'
 
 export default function Header() {
+
+  const [menuOpen, setMenuOpen] = useState(false)
+
   return (
     <header className="header">
-      
+
+      {/* LOGO */}
       <div className="logo">
-        <Link href="/">3D Business Models</Link>
+        <Link href="/" className="logo-link">
+          <Image
+            src="/logo1.png"
+            alt="Logo"
+            width={60}
+            height={60}
+            className="logo-img"
+          />
+        </Link>
       </div>
 
-      <nav>
+      {/* MENU BUTTON */}
+      <div
+        className={`menu-btn ${menuOpen ? 'active' : ''}`}
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      {/* NAVIGATION */}
+      <nav className={`nav ${menuOpen ? 'show' : ''}`}>
         <ul className="nav-links">
           <li><Link href="/">Home</Link></li>
-
-          <li className="dropdown">
-            <span className="dropbtn">Service +</span>
-
-            <div className="dropdown-content">
-              <Link href="./product">3D Product Design</Link>
-              <Link href="./3d printing">3D Printing</Link>
-              <Link href="./3d animation">3D Animation</Link>
-              <Link href="./3d">3D Laser Scanning</Link>
-              <Link href="#">Rapid Prototyping</Link>
-              <Link href="#">Vacuum Casting</Link>
-              <Link href="#">Mass Manufacturing</Link>
-            </div>
-          </li>
-        
           <li><Link href="/About">About</Link></li>
+          <li><Link href="/services">Service</Link></li>
           <li><Link href="/gallery">Gallery</Link></li>
           <li><Link href="/Contact">Contact</Link></li>
         </ul>
       </nav>
+
     </header>
   )
 }
