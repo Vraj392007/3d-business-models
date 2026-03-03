@@ -15,52 +15,66 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
 
+  // ================= VALIDATION =================
   const validate = () => {
     let newErrors: { [key: string]: string } = {};
 
-    // Name
     if (!form.name.trim()) {
       newErrors.name = "Name is required";
-    } else if (!/^[A-Za-z\s]{3,}$/.test(form.name)) {
-      newErrors.name = "Name must be at least 3 letters (no numbers)";
+    } else if (!/^[A-Za-z\s]+$/.test(form.name)) {
+      newErrors.name = "Name should contain only letters";
+    } else if (form.name.trim().length < 3) {
+      newErrors.name = "Name must be at least 3 characters";
     }
 
-    // Email
     if (!form.email.trim()) {
       newErrors.email = "Email is required";
     } else if (
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(form.email)
     ) {
-      newErrors.email = "Invalid email format";
+      newErrors.email = "Enter valid email address";
     }
 
-    // Phone
     if (!form.phone.trim()) {
       newErrors.phone = "Phone number is required";
     } else if (!/^[6-9]\d{9}$/.test(form.phone)) {
-      newErrors.phone = "Enter valid Indian mobile number";
+      newErrors.phone =
+        "Enter valid 10 digit Indian mobile number (starts with 6-9)";
     }
 
-    // Message
     if (!form.message.trim()) {
       newErrors.message = "Message is required";
-    } else if (form.message.length < 10) {
+    } else if (form.message.trim().length < 10) {
       newErrors.message = "Message must be at least 10 characters";
+    } else if (form.message.length > 500) {
+      newErrors.message = "Message should not exceed 500 characters";
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  // ================= SUBMIT (API CONNECTED) =================
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSuccess("");
 
-    if (validate()) {
-      setLoading(true);
+    if (!validate()) return;
 
-      setTimeout(() => {
-        setLoading(false);
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
         setSuccess("Message sent successfully ✅");
         setForm({
           name: "",
@@ -68,14 +82,25 @@ export default function Contact() {
           phone: "",
           message: "",
         });
-      }, 1500);
+      } else {
+        setSuccess("Something went wrong ❌");
+      }
+    } catch (error) {
+      setSuccess("Server error ❌");
     }
+
+    setLoading(false);
   };
 
+  // ================= HANDLE CHANGE =================
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     let value = e.target.value;
+
+    if (e.target.name === "name") {
+      value = value.replace(/[^A-Za-z\s]/g, "");
+    }
 
     if (e.target.name === "phone") {
       value = value.replace(/\D/g, "").slice(0, 10);
@@ -83,6 +108,10 @@ export default function Contact() {
 
     if (e.target.name === "email") {
       value = value.toLowerCase();
+    }
+
+    if (e.target.name === "message") {
+      value = value.slice(0, 500);
     }
 
     setForm({ ...form, [e.target.name]: value });
@@ -100,7 +129,6 @@ export default function Contact() {
         {success && <p style={styles.success}>{success}</p>}
 
         <form onSubmit={handleSubmit} style={styles.form}>
-          <label style={styles.label}>Name *</label>
           <input
             type="text"
             name="name"
@@ -111,7 +139,6 @@ export default function Contact() {
           />
           {errors.name && <p style={styles.error}>{errors.name}</p>}
 
-          <label style={styles.label}>Email *</label>
           <input
             type="email"
             name="email"
@@ -122,7 +149,6 @@ export default function Contact() {
           />
           {errors.email && <p style={styles.error}>{errors.email}</p>}
 
-          <label style={styles.label}>Phone *</label>
           <input
             type="text"
             name="phone"
@@ -133,7 +159,6 @@ export default function Contact() {
           />
           {errors.phone && <p style={styles.error}>{errors.phone}</p>}
 
-          <label style={styles.label}>Message *</label>
           <textarea
             name="message"
             placeholder="Write your message..."
@@ -147,19 +172,6 @@ export default function Contact() {
             {loading ? "Sending..." : "Send Message"}
           </button>
         </form>
-
-        {/* Map Section */}
-        <div style={styles.mapContainer}>
-          <h2 style={styles.mapTitle}>Visit Our Office</h2>
-
-          <iframe
-            src="https://www.google.com/maps?q=Ahmedabad,India&output=embed"
-            width="100%"
-            height="350"
-            style={styles.map}
-            loading="lazy"
-          ></iframe>
-        </div>
       </div>
     </main>
   );
@@ -188,11 +200,6 @@ const styles: { [key: string]: React.CSSProperties } = {
   form: {
     display: "flex",
     flexDirection: "column",
-  },
-  label: {
-    marginBottom: "5px",
-    fontSize: "14px",
-    opacity: 0.8,
   },
   input: {
     padding: "12px",
@@ -224,7 +231,6 @@ const styles: { [key: string]: React.CSSProperties } = {
   error: {
     color: "#ff4d4d",
     fontSize: "13px",
-    marginBottom: "10px",
   },
   success: {
     background: "#003d2e",
@@ -233,17 +239,5 @@ const styles: { [key: string]: React.CSSProperties } = {
     textAlign: "center",
     marginBottom: "20px",
     color: "#00ffb3",
-  },
-  mapContainer: {
-    marginTop: "60px",
-  },
-  mapTitle: {
-    textAlign: "center",
-    marginBottom: "20px",
-    fontSize: "24px",
-  },
-  map: {
-    borderRadius: "15px",
-    border: "1px solid #333",
   },
 };

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import './header.css'
+import './Header.css'
 
 export default function Header() {
   return (
@@ -28,10 +28,10 @@ export default function Header() {
               <Link href="#">Mass Manufacturing</Link>
             </div>
           </li>
-
-          <li><Link href="/about">About Us</Link></li>
+        
+          <li><Link href="/About">About</Link></li>
           <li><Link href="/gallery">Gallery</Link></li>
-          <li><Link href="/contact">Contact</Link></li>
+          <li><Link href="/Contact">Contact</Link></li>
         </ul>
       </nav>
     </header>

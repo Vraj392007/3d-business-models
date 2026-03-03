@@ -3,14 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import React from "react";
 
 export default function About() {
   return (
     <main style={styles.main}>
-
       {/* Animated Background Glow */}
-      <div style={styles.
-        backgroundGlow}></div>
+      <div style={styles.backgroundGlow}></div>
 
       {/* HERO */}
       <section style={styles.hero}>
@@ -38,7 +37,6 @@ export default function About() {
       <section style={styles.section}>
         <div style={styles.container}>
           <div style={styles.aboutFlex}>
-
             {/* IMAGE */}
             <motion.div
               style={styles.imageWrapper}
@@ -70,15 +68,54 @@ export default function About() {
 
               <p style={styles.paragraph}>
                 We are a creative 3D web development studio focused on delivering
-                high-performance digital solutions blending creativity and technology.
+                high-performance digital solutions blending creativity and
+                technology.
               </p>
 
               <p style={styles.paragraph}>
-                From product modeling to architectural visualization and interactive
-                experiences, we help businesses stand out with innovative solutions.
+                From product modeling to architectural visualization and
+                interactive experiences, we help businesses stand out with
+                innovative solutions.
+              </p>
+
+              <p style={styles.paragraph}>
+                Our team combines design excellence with modern development
+                frameworks to create fast, responsive and visually stunning
+                digital platforms.
               </p>
             </motion.div>
+          </div>
+        </div>
+      </section>
 
+      {/* OUR JOURNEY */}
+      <section style={styles.journeySection}>
+        <div style={styles.container}>
+          <motion.h2
+            style={styles.journeyTitle}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            Our Journey
+          </motion.h2>
+
+          <div style={styles.timeline}>
+            {journeyData.map((item, index) => (
+              <motion.div
+                key={index}
+                style={styles.timelineItem}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -80 : 80 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <div style={styles.timelineDot}></div>
+                <h3 style={styles.timelineYear}>{item.year}</h3>
+                <p style={styles.timelineText}>{item.text}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -96,7 +133,7 @@ export default function About() {
         </motion.div>
       </section>
 
-      {/* Keyframes */}
+      {/* Glow Animation */}
       <style>
         {`
           @keyframes floatGlow {
@@ -105,13 +142,30 @@ export default function About() {
           }
         `}
       </style>
-
     </main>
   );
 }
 
-const styles: { [key: string]: React.CSSProperties } = {
+const journeyData = [
+  {
+    year: "2021 – Foundation",
+    text: "Our studio began with a passion for 3D creativity and immersive web innovation."
+  },
+  {
+    year: "2022 – Growth",
+    text: "Expanded into architectural visualization and advanced 3D website experiences."
+  },
+  {
+    year: "2023 – Innovation",
+    text: "Integrated modern animation frameworks and high-performance rendering solutions."
+  },
+  {
+    year: "Today – Excellence",
+    text: "Delivering premium digital solutions to brands worldwide with precision and creativity."
+  }
+];
 
+const styles: { [key: string]: React.CSSProperties } = {
   main: {
     background: "#0a0a0a",
     color: "white",
@@ -131,15 +185,9 @@ const styles: { [key: string]: React.CSSProperties } = {
     animation: "floatGlow 6s infinite alternate"
   },
 
-  hero: {
-    padding: "140px 20px",
-    textAlign: "center"
-  },
-
+  hero: { padding: "140px 20px", textAlign: "center" },
   title: { fontSize: "50px", marginBottom: "20px" },
-
   highlight: { color: "#00f5ff" },
-
   text: {
     maxWidth: "800px",
     margin: "0 auto",
@@ -149,7 +197,6 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
 
   section: { padding: "100px 20px" },
-
   container: { maxWidth: "1100px", margin: "auto" },
 
   aboutFlex: {
@@ -166,9 +213,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     boxShadow: "0 20px 60px rgba(0,0,0,0.6)"
   },
 
-  image: {
-    borderRadius: "20px"
-  },
+  image: { borderRadius: "20px" },
 
   imageOverlay: {
     position: "absolute",
@@ -188,11 +233,47 @@ const styles: { [key: string]: React.CSSProperties } = {
     marginBottom: "20px"
   },
 
-  paragraph: {
-    marginBottom: "20px",
-    lineHeight: 1.8,
-    opacity: 0.85
+  paragraph: { marginBottom: "20px", lineHeight: 1.8, opacity: 0.85 },
+
+  journeySection: {
+    padding: "120px 20px",
+    background: "#0f0f0f"
   },
+
+  journeyTitle: {
+    fontSize: "40px",
+    textAlign: "center",
+    marginBottom: "60px",
+    color: "#00f5ff"
+  },
+
+  timeline: {
+    maxWidth: "900px",
+    margin: "auto",
+    display: "flex",
+    flexDirection: "column",
+    gap: "60px"
+  },
+
+  timelineItem: {
+    position: "relative",
+    paddingLeft: "40px",
+    borderLeft: "2px solid #00f5ff40"
+  },
+
+  timelineDot: {
+    position: "absolute",
+    left: "-10px",
+    top: "5px",
+    width: "18px",
+    height: "18px",
+    background: "#00f5ff",
+    borderRadius: "50%",
+    boxShadow: "0 0 20px #00f5ff"
+  },
+
+  timelineYear: { fontSize: "22px", marginBottom: "10px", fontWeight: 600 },
+  timelineText: { opacity: 0.8, lineHeight: 1.8 },
 
   cta: {
     padding: "120px 20px",
