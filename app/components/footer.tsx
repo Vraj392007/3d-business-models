@@ -3,6 +3,8 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import "./footer.css";
+import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
   return (
@@ -27,27 +29,38 @@ export default function Footer() {
           <p>
             At 3D Business Models, we specialize in creating high-quality
             3D product designs, laser scanning solutions, product animations,
-            and rapid prototyping services. We transform ideas into realistic
-            3D experiences that help businesses grow.
+            and rapid prototyping services.
           </p>
 
+          {/* Social Icons */}
           <div className="social-icons">
-            <a href="#">F</a>
-            <a href="#">I</a>
-            <a href="#">X</a>
-            <a href="#">Y</a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              <FaFacebookF />
+            </a>
+
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              <FaInstagram />
+            </a>
+
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+              <FaXTwitter />
+            </a>
+
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+              <FaYoutube />
+            </a>
           </div>
-        </div>
+        </div> {/* ✅ CLOSED footer-about */}
 
         {/* Middle Section */}
         <div className="footer-links">
           <h3>Useful Links</h3>
           <ul>
             <li><Link href="/">Home</Link></li>
-            <li><Link href="/about">About Us</Link></li>
+            <li><Link href="/About">About Us</Link></li>
             <li><Link href="/services">Services</Link></li>
             <li><Link href="/gallery">Gallery</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
+            <li><Link href="/Contact">Contact</Link></li>
           </ul>
         </div>
 
@@ -61,7 +74,12 @@ export default function Footer() {
           </p>
 
           <div className="qr-box">
-            <img src="/footer.jpeg" alt="QR Code" />
+            <Image
+              src="/footer.jpeg"
+              alt="QR Code"
+              width={150}
+              height={150}
+            />
             <p>Tap / Scan QR Code</p>
           </div>
         </div>
@@ -70,7 +88,16 @@ export default function Footer() {
 
       {/* Bottom Line */}
       <div className="footer-bottom">
-        © 2026 3D Business Models | All Rights Reserved
+        © {new Date().getFullYear()} 3D Business Models | All Rights Reserved <br />
+        Made with ❤️ by{" "}
+        <a
+          href="https://www.techstrota.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-link"
+        >
+          3D Business Models
+        </a>
       </div>
 
       {/* Scroll To Top Button */}
